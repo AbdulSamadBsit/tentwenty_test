@@ -1,17 +1,25 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Platform} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Icon, {Icons} from './Icons';
 import useReduxStore from '../hooks/useReduxStore';
-import {SCREENS} from '../constants';
 
-const CustomHeader = ({
-  title = '',
-  leftIcon = 'arrow-back-sharp',
-  onLeftPress  ,
+interface CustomHeaderProps {
+  title: string; // 🔹 required
+  leftIcon?: string; // optional
+  onLeftPress?: () => void; // optional
+  rightIcon?: string; // optional
+  onRightPress?: () => void; // optional
+}
+
+const CustomHeader: React.FC<CustomHeaderProps> = ({
+  title,
+  leftIcon = 'arrow-back-ios',
+  onLeftPress,
   rightIcon,
   onRightPress,
 }) => {
-  const {dispatch, theme, navigation} = useReduxStore();
+  const {navigation} = useReduxStore();
+
   function onPress() {
     if (onLeftPress) {
       onLeftPress();
@@ -22,42 +30,46 @@ const CustomHeader = ({
 
   function onRight() {
     if (onRightPress) {
-      rightIcon();
+      onRightPress();
     } else {
-      navigation.navigate(SCREENS.Notification);
+      navigation.navigate('Notification');
     }
   }
 
   return (
     <View style={styles.container}>
-      <Icon type={Icons.Ionicons} name={leftIcon} onPress={onPress} />
+      {leftIcon ? (
+        <Icon type={Icons.MaterialIcons} name={leftIcon} onPress={onPress} />
+      ) : (
+        <View style={styles.iconContainer} />
+      )}
 
-      <Text
-        style={[styles.title, {color: theme.colors.text}]}
-        numberOfLines={1}>
+      <Text style={styles.title} numberOfLines={1}>
         {title}
       </Text>
 
-      <Icon
-        type={Icons.Ionicons}
-        name={'notifications'}
-        size={24}
-        onPress={onRight}
-      />
+      {rightIcon ? (
+        <Icon
+          type={Icons.Ionicons}
+          name={rightIcon}
+          size={24}
+          onPress={onRight}
+        />
+      ) : (
+        <View style={styles.iconContainer} />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // height: Platform.OS === 'ios' ? 100 : 70,
-    // paddingTop: Platform.OS === 'ios' ? 50 : 20,
     paddingVertical: 10,
-
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     zIndex: 10,
+    paddingHorizontal: 10,
   },
   iconContainer: {
     width: 40,

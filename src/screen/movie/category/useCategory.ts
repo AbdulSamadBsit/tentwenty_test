@@ -9,30 +9,18 @@ export const useCategory = () => {
 
   const {categories, loading, error} = getState('movies');
 
-  // Fetch categories on mount
   useEffect(() => {
     onRefetch();
-
-    return () => {
-      // Cleanup if needed
-    };
   }, []);
 
   function onRefetch() {
-    dispatch(fetchCategories())
-      .unwrap()
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    dispatch(fetchCategories());
   }
 
   return {
     onRefetch,
     categories,
     loading,
-    error
+    error,
   };
 };

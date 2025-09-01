@@ -11,9 +11,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { DarkTheme, LightTheme } from '../themes';
+import { COLORS } from '../constants';
 
 export const Icons = {
   MaterialCommunityIcons,
@@ -30,27 +28,39 @@ export const Icons = {
   Fontisto,
 };
 
-const Icon = ({ type, name, color, size = 24, style={}, onPress=()=>{} }) => {
-  const currentTheme = useSelector((state: RootState) => state.theme.theme);
+interface IconProps {
+  type: any;
+  name: string;
+  color?: string;
+  size?: number;
+  style?: object;
+  onPress?: () => void;
+  disabled?: boolean;
+}
 
-  const theme = currentTheme === 'dark' ? DarkTheme : LightTheme;
-
-  const fontSize = 24;
+const Icon: React.FC<IconProps> = ({
+  type = null,
+  name = '',
+  color = '',
+  size = 24,
+  style = {},
+  onPress = () => {},
+  disabled = false,
+}) => {
   const Tag = type;
-  const clr = color  ? color: theme.colors.icon  
-
-
-
 
   return (
     <>
       {type && name && (
         <Tag
           name={name}
-          size={size || fontSize}
-          color={clr}
-          style={style}
-          onPress={onPress}
+          size={size}
+          color={disabled ? COLORS.darkGrey : color || COLORS.primary}
+          style={[
+            style,
+            disabled ? {opacity: 0.5} : {}, // 👈 make icon look disabled
+          ]}
+          onPress={disabled ? undefined : onPress} // 👈 prevent press when disabled
         />
       )}
     </>

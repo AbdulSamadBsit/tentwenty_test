@@ -1,18 +1,12 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Notification from '../screen/notification';
-import useNavigation from './useNavigation';
-import AuthNavigation from './authStack';
-import {SCREENS} from '../constants';
-import {SafeAreaView} from 'react-native';
-import ProfileNavigation from './profile';
-import WatchScreen from '../screen/movie/movies';
-import CategoriesScreen from '../screen/movie/category';
-import SearchResultsScreen from '../screen/movie/search';
 import MovieDetailsScreen from '../screen/movie/movie_detail';
+import SearchResultsScreen from '../screen/movie/search';
+import CategoriesScreen from '../screen/movie/category';
+import WatchScreen from '../screen/movie/movies';
+import {SCREENS} from '../constants';
 
 const MainNavigation = () => {
-  const {currentTheme} = useNavigation();
 
   const Stack = createNativeStackNavigator();
 
@@ -20,21 +14,11 @@ const MainNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{headerShown: false}}
-        initialRouteName={SCREENS.AUTH_STACK}>
-        <Stack.Screen name={SCREENS.AUTH_STACK} component={WatchScreen} />
-        <Stack.Screen
-          name={SCREENS.PROFILE_STACK}
-          component={CategoriesScreen}
-        />
-        <Stack.Screen
-          name={'SearchResultsScreen'}
-          component={SearchResultsScreen}
-        />
-        <Stack.Screen
-          name={'MovieDetailsScreen'}
-          component={MovieDetailsScreen}
-        />
-        <Stack.Screen name={SCREENS.Notification} component={Notification} />
+        initialRouteName={SCREENS.WATCH}>
+        <Stack.Screen name={SCREENS.WATCH} component={WatchScreen} />
+        <Stack.Screen name={SCREENS.CATEGORY} component={CategoriesScreen} />
+        <Stack.Screen name={SCREENS.SEARCH} component={SearchResultsScreen} />
+        <Stack.Screen name={SCREENS.DETAILS} component={MovieDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

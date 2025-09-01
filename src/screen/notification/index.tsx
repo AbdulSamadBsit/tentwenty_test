@@ -3,9 +3,8 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import useNotification from './useNatification';
 
-import {AutoSkeletonView} from 'react-native-auto-skeleton';
-import CustomSkeleton from '../../components/CustomSkeletion';
 import CustomHeader from '../../components/CustomHeader';
+import CustomSkeleton from '../../components/CustomSkeleton';
 
 export default function Notification() {
   const {styles, listViewData, isLoading, setIsLoading} = useNotification();

@@ -1,112 +1,3 @@
-// import React, {useState} from 'react';
-// import {
-//   View,
-//   FlatList,
-//   RefreshControl,
-//   Text,
-//   TouchableOpacity,
-//   ActivityIndicator,
-//   FlatListProps,
-// } from 'react-native';
-// import utils from '../utils';
-// import CustomSkeleton from './CustomSkeletion';
-
-// interface CustomFlatListProps<ItemT> extends FlatListProps<ItemT> {
-//   data: ItemT[];
-//   loading?: boolean;
-//   refreshing?: boolean;
-//   onRefresh?: () => void;
-//   onLoadMore?: () => void;
-//   isLoadingMore?: boolean;
-//   numColumns: number;
-//   contentContainerStyle?: object;
-//   RenderItem: (props: {item: ItemT; index: number}) => React.ReactElement;
-// }
-
-// export default function CustomFlatList<ItemT>({
-//   data,
-//   loading = false,
-//   refreshing = false,
-//   onRefresh,
-//   onLoadMore,
-//   isLoadingMore = false,
-//   RenderItem,
-//   numColumns = 1,
-//   ...rest
-// }: CustomFlatListProps<ItemT>) {
-//   const [reachedEnd, setReachedEnd] = useState(false);
-
-//   const handleEndReached = () => {
-//     if (!reachedEnd && onLoadMore) {
-//       setReachedEnd(true);
-//     }
-//   };
-
-//   const handleLoadMore = () => {
-//     if (onLoadMore) {
-//       setReachedEnd(false);
-//       onLoadMore();
-//     }
-//   };
-
-//   const renderListItem = ({item, index}: {item: ItemT; index: number}) => (
-//     <CustomSkeleton isLoading={loading}>
-//       {RenderItem({item, index})}
-//     </CustomSkeleton>
-//   );
-
-//   const renderFooter = () => {
-//     if (loading) return null;
-
-//     if (isLoadingMore) {
-//       return (
-//         <View style={{padding: 16, alignItems: 'center'}}>
-//           <ActivityIndicator size="small" />
-//         </View>
-//       );
-//     }
-
-//     if (reachedEnd && onLoadMore && displayData?.length > 6) {
-//       return (
-//         <TouchableOpacity
-//           onPress={handleLoadMore}
-//           style={{padding: 16, alignItems: 'center'}}>
-//           <Text style={{fontWeight: 'bold', color: 'blue'}}>Load More</Text>
-//         </TouchableOpacity>
-//       );
-//     }
-
-//     return null;
-//   };
-
-//   const displayData = loading
-//     ? Array.from({length: 5}, (_, i) => ({id: `${i}`} as ItemT))
-//     : data;
-
-//   return (
-//     <View style={{flex: 1}}>
-//       <FlatList
-//         data={displayData}
-//         keyExtractor={utils.keyExtractor}
-//         renderItem={renderListItem}
-//         extraData={data}
-//         onEndReached={handleEndReached}
-//         onEndReachedThreshold={0.2}
-//         numColumns={numColumns}
-//         refreshControl={
-//           onRefresh ? (
-//             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-//           ) : undefined
-//         }
-//         ListFooterComponent={renderFooter()}
-//         contentContainerStyle={{marginTop: 10, paddingHorizontal: 10}}
-//         style={{flex: 1}}
-//         {...rest} 
-//       />
-//     </View>
-//   );
-// }
-
 import React, { useState } from 'react';
 import {
   View,
@@ -118,7 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import utils from '../utils';
-import CustomSkeleton from './CustomSkeletion';
+import CustomSkeleton from './CustomSkeleton';
 
 // Omit renderItem from FlatListProps, since we use our own RenderItem
 interface CustomFlatListProps<ItemT> extends Omit<FlatListProps<ItemT>, 'renderItem'> {
@@ -190,6 +81,7 @@ export default function CustomFlatList<ItemT>({
         renderItem={renderListItem}
         numColumns={numColumns}
         onEndReached={handleEndReached}
+        showsVerticalScrollIndicator={false}
         onEndReachedThreshold={0.2}
         refreshControl={
           onRefresh ? (

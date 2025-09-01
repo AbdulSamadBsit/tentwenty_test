@@ -74,6 +74,12 @@ export const SCREENS = {
   EditProfile: 'EditProfile',
   ChangePassword: 'ChangePassword',
   DeleteAccount: 'DeleteAccount',
+
+  // Movie
+  WATCH:"WatchScreen",
+  CATEGORY:"CategoriesScreen",
+  DETAILS:"MovieDetailsScreen",
+  SEARCH:"SearchResultsScreen"
 };
 
 /* * SIZES * */
@@ -342,7 +348,8 @@ export const API = {
   MOVIE: {
     UPCOMING: 'movie/upcoming',
     CATEGORIES: 'genre/movie/list',
-    SEARCH: 'genre/movie/list',
+    SEARCH: '/search/movie',
+    DETAIL:"movie/"
   },
 };
 

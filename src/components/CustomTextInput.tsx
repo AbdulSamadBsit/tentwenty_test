@@ -27,7 +27,6 @@ const CustomTextInput = forwardRef<RNTextInput, CustomTextInputProps>(
     const isPasswordField = secureTextEntry === true;
 
 
-    console.log(isPasswordVisible);
     
 
     const togglePasswordVisibility = () => {
