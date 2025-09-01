@@ -54,6 +54,16 @@ react {
     autolinkLibrariesWithApp()
 }
 
+
+project.ext.react = [
+    enableHermes: true  ,
+    nodeExecutableAndArgs: ["/Users/shohab/.nvm/versions/node/v24.3.0/bin/node"], // Or full path like ["/usr/local/bin/node"]
+    bundleCommand: "ram-bundle", // For better performance
+    extraPackagerArgs: ["--indexed-ram-bundle"]
+]
+
+
+
 /**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
@@ -110,6 +120,7 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation project(':react-native-vector-icons')
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
